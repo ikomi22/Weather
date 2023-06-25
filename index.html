@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKOMI WEATHER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        
+        body{
+            color:aliceblue;
+            font-family: Arial, Helvetica, sans-serif;
+        } 
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+        .innercontainer{
+            width: 300px;
+            height: 500px;
+            border-radius: 2%;
+            background-color:  rgb(91, 164, 210);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+
+        }
+    </style>
+    <link href="favicon/Favicon1.png" rel="icon">
+    <link href="facicon/Favicon1.png" rel="apple-touch-icon">
+</head>
+
+
+<body style="background-color: rgb(40, 40, 40);">
+    <div class="container">
+        <div class="innercontainer">
+
+            <div>
+                <p style="font-size:large"><i class="fa fa-location-arrow"></i><strong id="location">New York</strong></p>
+
+                <div>
+                    <p id="date"> Thurs 29 Jun 2023</p>
+                </div>
+                <div>
+                    <img id="icon" src="https://openweathermap.org/img/wn/10d@2x.png " alt="weather icon">
+                    <p id="description"></p>
+                </div>
+                <div>
+                    <p id="temperature" style="font-size:xxx-large">37&#176;C</p>
+                </div>
+
+
+
+            </div>
+
+            
+        </div>
+    </div>
+    <script>
+        
+        const api = `116ed7d4295b0d02b05191f18b145c3e`
+        const city = `London`
+        const api_link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric`
+
+        fetch(api_link)
+        .then(res => res.json())
+        .then(data =>{
+            const { weather , main} = data
+            document.getElementById('location').innertext = city
+            document.getElementById('date').innerText = (new Date()).toDateString()
+            document.getElementById('icon').src = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
+            document.getElementById('description').innerText = weather[0].description
+            document.getElementById('temperature').innerHTML = `${main.temp}&#176;C`
+        })
+
+    </script>
+</body>
+</html>
